@@ -3,6 +3,7 @@ import exress from 'express'
 import cors from 'cors';
 import dot from 'dotenv'
 import { getAgent } from './chat';
+import { OpenAI } from 'langchain';
 
 dot.config();
 
@@ -20,19 +21,21 @@ type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
 
 let agent: UnwrapPromise<ReturnType<typeof getAgent>>;
 
+
+const model = new OpenAI({ temperature: 0.9 });
 app.post('/chat', async (req, res) => {
     const { input } = req.body;
-
-    const result = await agent.call({
-        input: input as string,
-    });
-
-    res.send(result);
+    console.log(input)
+    const result = await model.call(
+        "What would be a good company name a company that makes colorful socks?"
+      );
+    res.status(200);
+    res.json(result);
 })
 
 
+
 const setup = async () => {
-    agent = await getAgent();
     app.listen(process.env.PORT || 3000, () => {
         console.log(`Example app listening at http://localhost:${process.env.PORT || 3000}`)
     })

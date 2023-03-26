@@ -25,7 +25,7 @@ import {
     TextLoader,
     UnstructuredLoader,
 } from "langchain/document_loaders";
-import { ChatVectorDBQAChain, LLMChain, SqlDatabaseChain } from "langchain/chains";
+import { ChatVectorDBQAChain, LLMChain, SqlDatabaseChain, VectorDBQAChain } from "langchain/chains";
 import { OpenAI } from "langchain";
 import { CallbackManager } from "langchain/callbacks";
 import {
@@ -78,7 +78,7 @@ export const getAgent = async () => {
     ]);
 
     // await vectorStore.save(path.join(path.dirname(fileURLToPath(import.meta.url)), "../data", "hnswlib"));
-    const chain = ChatVectorDBQAChain.fromLLM(model, vectorStore);
+    const chain = VectorDBQAChain.fromLLM(model, vectorStore);
 
     // const dbChain = new SqlDatabaseChain({
     //   llm: new OpenAI({ temperature: 0.7 }),

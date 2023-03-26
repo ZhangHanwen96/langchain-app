@@ -24,6 +24,9 @@ let agent: UnwrapPromise<ReturnType<typeof getAgent>>;
 
 // const model = new OpenAI({ temperature: 0.9 });
 app.post('/chat', async (req, res) => {
+    if(!agent) {
+        agent = await getAgent();
+    }
     const { input } = req.body;
     console.log('query: ', input)
 
@@ -39,7 +42,7 @@ app.post('/chat', async (req, res) => {
 
 const setup = async () => {
     
-    agent = await getAgent();
+
     app.listen(process.env.PORT || 3000, () => {
         console.log(`Example app listening at http://localhost:${process.env.PORT || 3000}`)
     })

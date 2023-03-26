@@ -39,3 +39,5 @@ const setup = async () => {
 }
 
 setup();
+
+module.exports = app;

@@ -16,13 +16,12 @@ export const getAgent = async () => {
     ];
     const agent = await initializeAgentExecutor(
       tools,
-      new ChatOpenAI({ temperature: 0.7 }),
+      new ChatOpenAI({ temperature: 0.7, modelName: 'gpt-3.5-turbo-0301' }),
       "chat-zero-shot-react-description",
       true
     );
 
     return agent;
-  
 };
   
   

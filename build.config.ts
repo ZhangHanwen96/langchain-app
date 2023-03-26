@@ -9,6 +9,7 @@ export default defineBuildConfig({
       esbuild: {
         minify: true,
       },
+      emitCJS: true,
     },
     // Change outDir, default is 'dist'
     // outDir: 'build',

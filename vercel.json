@@ -2,14 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "dist/app.mjs",
-            "use": "@now/node"
+            "src": "dist/app.cjs",
+            "use": "@vercel/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "dist/app.mjs"
+            "dest": "dist/app.cjs"
         }
     ]
 }

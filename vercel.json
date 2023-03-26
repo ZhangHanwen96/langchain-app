@@ -1,10 +1,5 @@
 {
     "version": 2,
-    "functions": {
-        "dist/app.cjs": {
-            "runtime": "@vercel/node@18.7"
-        }
-    },
     "rewrites": [
         {
             "source": "/(.*)",

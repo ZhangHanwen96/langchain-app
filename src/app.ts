@@ -35,8 +35,6 @@ app.post('/chat', async (req, res) => {
     res.json(result);
 })
 
-
-
 const setup = async () => {
     
     agent = await getAgent();

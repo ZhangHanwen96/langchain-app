@@ -37,16 +37,16 @@ import {
 const cwd = process.cwd();
 
 
-const datasource = new DataSource({
-  type: "sqlite",
-  database: "Chinook.db",
-});
+// const datasource = new DataSource({
+//   type: "sqlite",
+//   database: "Chinook.db",
+// });
 
 
 export const getAgent = async () => {
-  const db = await SqlDatabase.fromDataSourceParams({
-    appDataSource: datasource,
-  });
+    // const db = await SqlDatabase.fromDataSourceParams({
+    //   appDataSource: datasource,
+    // });
 
     const model = new ChatOpenAI({
         temperature: 0.7,
@@ -94,10 +94,10 @@ export const getAgent = async () => {
     // await vectorStore.save(path.join(path.dirname(fileURLToPath(import.meta.url)), "../data", "hnswlib"));
     const chain = ChatVectorDBQAChain.fromLLM(model, vectorStore);
 
-    const dbChain = new SqlDatabaseChain({
-      llm: new OpenAI({ temperature: 0.7 }),
-      database: db,
-    });
+    // const dbChain = new SqlDatabaseChain({
+    //   llm: new OpenAI({ temperature: 0.7 }),
+    //   database: db,
+    // });
 
     const qaTool = new ChainTool({
         name: "kownledge-about-hanwen",
@@ -106,18 +106,18 @@ export const getAgent = async () => {
         chain: chain,
     });
 
-    const dbTool = new ChainTool({
-      name: 'db-tool',
-      description: 'This tool uses Chinook database, which is a sample database available for SQL Server, Oracle, MySQL. This tool contains infomation regarding the Chinook database. Do not use this tool unless I specifically mention about Chinook database.',
-      chain: dbChain,
-    })
+    // const dbTool = new ChainTool({
+    //   name: 'db-tool',
+    //   description: 'This tool uses Chinook database, which is a sample database available for SQL Server, Oracle, MySQL. This tool contains infomation regarding the Chinook database. Do not use this tool unless I specifically mention about Chinook database.',
+    //   chain: dbChain,
+    // })
 
     createVectorStoreAgent;
 
     const tools = [
         new Calculator(),
         qaTool,
-        dbTool,
+        // dbTool,
         // new RequestsGetTool(),
         // new RequestsPostTool(),
         // await AIPluginTool.fromPluginUrl(

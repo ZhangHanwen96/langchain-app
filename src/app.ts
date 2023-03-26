@@ -27,7 +27,9 @@ app.post('/chat', async (req, res) => {
     const { input } = req.body;
     console.log('query: ', input)
 
-    const result = await agent.call(
+    console.log(JSON.stringify(agent));
+
+    const result = await agent?.call(
        {input}
       );
 

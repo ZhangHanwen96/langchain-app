@@ -1,9 +1,16 @@
 {
     "version": 2,
-    "rewrites": [
+    "buildCommand": "pnpm run build",
+    "builds": [
         {
-            "source": "/(.*)",
-            "destination": "/dist/app.cjs"
+            "src": "dist/app.cjs",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "dist/app.cjs"
         }
     ]
 }

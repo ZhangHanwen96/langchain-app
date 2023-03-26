@@ -22,13 +22,15 @@ type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
 let agent: UnwrapPromise<ReturnType<typeof getAgent>>;
 
 
-const model = new OpenAI({ temperature: 0.9 });
+// const model = new OpenAI({ temperature: 0.9 });
 app.post('/chat', async (req, res) => {
     const { input } = req.body;
-    console.log(input)
-    const result = await model.call(
-        "What would be a good company name a company that makes colorful socks?"
+    console.log('query: ', input)
+
+    const result = await agent.call(
+       {input}
       );
+
     res.status(200);
     res.json(result);
 })
@@ -36,6 +38,7 @@ app.post('/chat', async (req, res) => {
 
 
 const setup = async () => {
+    agent = await getAgent();
     app.listen(process.env.PORT || 3000, () => {
         console.log(`Example app listening at http://localhost:${process.env.PORT || 3000}`)
     })

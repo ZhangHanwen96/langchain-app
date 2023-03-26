@@ -20,16 +20,18 @@ import {
 import { VectorDBQAChain } from "langchain/chains";
 import { OpenAI } from "langchain";
 
+const cwd = process.cwd(); 
+
 export const getAgent = async () => {
     const model = new OpenAI({ temperature: 0.7 });
     console.info(path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
+      cwd,
       "../data",
       "chat.txt"
   ))
     const loader = new TextLoader(
         path.join(
-            path.dirname(fileURLToPath(import.meta.url)),
+            cwd,
             "../data",
             "chat.txt"
         )

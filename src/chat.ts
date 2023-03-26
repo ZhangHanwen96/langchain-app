@@ -48,7 +48,7 @@ export const getAgent = async () => {
     //   appDataSource: datasource,
     // });
 
-    const model = new ChatOpenAI({
+    const model = new OpenAI({
         temperature: 0.7,
         concurrency: 10,
         modelName: "gpt-3.5-turbo-0301",

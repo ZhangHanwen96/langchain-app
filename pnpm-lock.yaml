@@ -11,13 +11,15 @@ specifiers:
   typescript: ^5.0.2
   unbuild: ^1.1.2
 
+dependencies:
+  hnswlib-node: 1.4.2
+
 devDependencies:
   '@types/express': 4.17.17
   cors: 2.8.5
   cross-env: 7.0.3
   dotenv: 16.0.3
   express: 4.18.2
-  hnswlib-node: 1.4.2
   langchain: 0.0.41_hnswlib-node@1.4.2
   typescript: 5.0.2
   unbuild: 1.1.2
@@ -695,7 +697,6 @@ packages:
     resolution: {integrity: sha1-EDU8npRTNLwFEabZCzj7x8nFBN8=}
     dependencies:
       file-uri-to-path: 1.0.0
-    dev: true
 
   /body-parser/1.20.1:
     resolution: {integrity: sha512-jWi7abTbYwajOytWCQc37VulmWiRae5RyTpaCyDcS5/lMdtwSz5lOpDE67srw/HYe35f1z3fDQw+3txg7gNtWw==}
@@ -1055,7 +1056,6 @@ packages:
 
   /file-uri-to-path/1.0.0:
     resolution: {integrity: sha1-VTp7hEb/b2hDWcRF8eN6BdrMM90=}
-    dev: true
 
   /fill-range/7.0.1:
     resolution: {integrity: sha1-GRmmp8df44ssfHflGYU12prN2kA=}
@@ -1214,7 +1214,6 @@ packages:
     dependencies:
       bindings: 1.5.0
       node-addon-api: 6.0.0
-    dev: true
 
   /hookable/5.5.2:
     resolution: {integrity: sha512-9JZdvGuxXswyoT47M0xrg+IabnK76Ppc7qjf8JdFZu/IaCWflTHVf/ln/GzicraEnPONPIfxgk929rdYiOqv9w==}
@@ -1551,7 +1550,6 @@ packages:
 
   /node-addon-api/6.0.0:
     resolution: {integrity: sha512-GyHvgPvUXBvAkXa0YvYnhilSB1A+FRYMpIVggKzPZqdaZfevZOuzfWzyvgzOwRLHBeo/MMswmJFsrNF4Nw1pmA==}
-    dev: true
 
   /node-releases/2.0.10:
     resolution: {integrity: sha512-5GFldHPXVG/YZmFzJvKK2zDSzPKhEp0+ZR5SVaoSag9fsL5YgHbUHDfnG5494ISANDcK4KwPXAx2xqVEydmd7w==}

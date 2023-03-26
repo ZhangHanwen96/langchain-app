@@ -50,20 +50,6 @@ export const getAgent = async () => {
 
     const model = new ChatOpenAI({
         temperature: 0.7,
-        streaming: true,
-        callbackManager: CallbackManager.fromHandlers({
-            // @ts-ignore
-            // handleLLMNewToken(token) {
-            //   console.log(token);
-            // },
-            // // @ts-ignore
-            // handleLLMEnd(output, verbose) {
-            //   console.log(output);
-            // },
-            // // @ts-ignore
-            // handleLLMError(error) {
-            // }
-        }),
         concurrency: 10,
         modelName: "gpt-3.5-turbo-0301",
     });

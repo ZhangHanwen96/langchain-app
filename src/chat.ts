@@ -93,14 +93,14 @@ export const getAgent = async () => {
     const tools = [
         new Calculator(),
         qaTool,
-        new RequestsGetTool(),
-        new RequestsPostTool(),
-        await AIPluginTool.fromPluginUrl(
-            "https://www.klarna.com/.well-known/ai-plugin.json"
-        ),
+        // new RequestsGetTool(),
+        // new RequestsPostTool(),
+        // await AIPluginTool.fromPluginUrl(
+        //     "https://www.klarna.com/.well-known/ai-plugin.json"
+        // ),
         new DynamicTool({
           name: 'get-weather-info',
-          description: 'Get weather info from openweather',
+          description: 'Use this tool to get latest weather info from openweather',
           // @ts-ignore
           func() {
             return 'today is a sunny day, and the temperature is 30 degrees'

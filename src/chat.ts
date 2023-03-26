@@ -1,3 +1,4 @@
+import {DataSource} from 'typeorm'
 import { ChatOpenAI } from "langchain/chat_models";
 import {
     ChatAgent,
@@ -12,6 +13,7 @@ import {
     Calculator,
     DynamicTool,
 } from "langchain/tools";
+import { SqlDatabase } from "langchain/sql_db";
 import { HNSWLib } from "langchain/vectorstores";
 import path from "path";
 import fs from "fs";
@@ -23,7 +25,7 @@ import {
     TextLoader,
     UnstructuredLoader,
 } from "langchain/document_loaders";
-import { ChatVectorDBQAChain, LLMChain } from "langchain/chains";
+import { ChatVectorDBQAChain, LLMChain, SqlDatabaseChain } from "langchain/chains";
 import { OpenAI } from "langchain";
 import { CallbackManager } from "langchain/callbacks";
 import {
@@ -34,7 +36,18 @@ import {
 
 const cwd = process.cwd();
 
+
+const datasource = new DataSource({
+  type: "sqlite",
+  database: "Chinook.db",
+});
+
+
 export const getAgent = async () => {
+  const db = await SqlDatabase.fromDataSourceParams({
+    appDataSource: datasource,
+  });
+
     const model = new ChatOpenAI({
         temperature: 0.7,
         streaming: true,
@@ -81,6 +94,11 @@ export const getAgent = async () => {
     // await vectorStore.save(path.join(path.dirname(fileURLToPath(import.meta.url)), "../data", "hnswlib"));
     const chain = ChatVectorDBQAChain.fromLLM(model, vectorStore);
 
+    const dbChain = new SqlDatabaseChain({
+      llm: new OpenAI({ temperature: 0.7 }),
+      database: db,
+    });
+
     const qaTool = new ChainTool({
         name: "kownledge-about-hanwen",
         description:
@@ -88,11 +106,18 @@ export const getAgent = async () => {
         chain: chain,
     });
 
+    const dbTool = new ChainTool({
+      name: 'db-tool',
+      description: 'This tool uses Chinook database, which is a sample database available for SQL Server, Oracle, MySQL. This tool contains infomation regarding the Chinook database. Do not use this tool unless I specifically mention about Chinook database.',
+      chain: dbChain,
+    })
+
     createVectorStoreAgent;
 
     const tools = [
         new Calculator(),
         qaTool,
+        dbTool,
         // new RequestsGetTool(),
         // new RequestsPostTool(),
         // await AIPluginTool.fromPluginUrl(
@@ -105,7 +130,8 @@ export const getAgent = async () => {
           func() {
             return 'today is a sunny day, and the temperature is 30 degrees'
           },
-        })
+        }),
+
     ];
 
     const executor = await initializeAgentExecutor(

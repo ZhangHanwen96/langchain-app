@@ -1,4 +1,3 @@
-dist
 .env
 node_modules
 Chinook_Sqlite.sql

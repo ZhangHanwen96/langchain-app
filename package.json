@@ -7,8 +7,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "cross-env NODE_ENV=production node dist/app.cjs",
         "dev": "unbuild --stub",
-        "build": "unbuild",
-        "vercel-build": "pnpm run unbuild"
+        "build": "unbuild"
     },
     "keywords": [],
     "author": "Felix",

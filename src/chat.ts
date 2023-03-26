@@ -22,6 +22,11 @@ import { OpenAI } from "langchain";
 
 export const getAgent = async () => {
     const model = new OpenAI({ temperature: 0.7 });
+    console.info(path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      "../data",
+      "chat.txt"
+  ))
     const loader = new TextLoader(
         path.join(
             path.dirname(fileURLToPath(import.meta.url)),
@@ -29,11 +34,7 @@ export const getAgent = async () => {
             "chat.txt"
         )
     );
-    console.log(path.join(
-            path.dirname(fileURLToPath(import.meta.url)),
-            "../data",
-            "chat.txt"
-        ))
+
     const docs = await loader.load();
     const vectorStore = await HNSWLib.fromDocuments(
        docs,

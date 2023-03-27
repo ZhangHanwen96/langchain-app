@@ -89,6 +89,7 @@ export class LlmBashChain extends BaseChain {
 
         t.trim();
         let output;
+        console.info(t);
         if(t.startsWith("```bash")) {
             let commandList = t.split('\n');
             console.info(commandList);

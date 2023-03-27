@@ -28,7 +28,7 @@ app.post('/chat', async (req, res) => {
         // agent = await getAgent();
         agent = getLlmBashChain();
     }
-    const result = await agent.run(`Please write a bash script that prints 'Hello World' to the console.`)
+    const result = await agent.call({question: `Please write a bash script that prints 'Hello World' to the console.`})
     const { input } = req.body;
     console.log('query: ', input)
 

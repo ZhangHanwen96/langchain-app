@@ -4,6 +4,7 @@ import {
     ChatAgent,
     createVectorStoreAgent,
     initializeAgentExecutor,
+    ChatConversationalAgent
 } from "langchain/agents";
 import {
     RequestsGetTool,
@@ -25,7 +26,7 @@ import {
     TextLoader,
     UnstructuredLoader,
 } from "langchain/document_loaders";
-import { ChatVectorDBQAChain, LLMChain, SqlDatabaseChain, VectorDBQAChain } from "langchain/chains";
+import { ChatVectorDBQAChain, LLMChain, SqlDatabaseChain } from "langchain/chains";
 import { OpenAI } from "langchain";
 import { CallbackManager } from "langchain/callbacks";
 import {
@@ -48,8 +49,9 @@ export const getAgent = async () => {
     //   appDataSource: datasource,
     // });
 
-    const model = new OpenAI({
+    const model = new ChatOpenAI({
         temperature: 0.7,
+
         concurrency: 10,
         modelName: "gpt-3.5-turbo-0301",
     });
@@ -78,7 +80,7 @@ export const getAgent = async () => {
     ]);
 
     // await vectorStore.save(path.join(path.dirname(fileURLToPath(import.meta.url)), "../data", "hnswlib"));
-    const chain = VectorDBQAChain.fromLLM(model, vectorStore);
+    const chain = ChatVectorDBQAChain.fromLLM(model, vectorStore);
 
     // const dbChain = new SqlDatabaseChain({
     //   llm: new OpenAI({ temperature: 0.7 }),
@@ -123,7 +125,7 @@ export const getAgent = async () => {
     const executor = await initializeAgentExecutor(
         tools,
         model,
-        "chat-zero-shot-react-description"
+        "chat-conversational-react-description"
     );
 
     return executor;

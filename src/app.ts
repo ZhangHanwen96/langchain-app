@@ -2,7 +2,7 @@
 import exress from 'express'
 import cors from 'cors';
 import dot from 'dotenv'
-import { getAgent } from './chat';
+import { getAgent, getLlmBashChain } from './chat';
 import { OpenAI } from 'langchain';
 
 dot.config();
@@ -19,22 +19,22 @@ app.get('/ping', (_, res) => {
 
 type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
 
-let agent: UnwrapPromise<ReturnType<typeof getAgent>>;
+let agent: UnwrapPromise<ReturnType<typeof getLlmBashChain>>;
 
 
 // const model = new OpenAI({ temperature: 0.9 });
 app.post('/chat', async (req, res) => {
     if(!agent) {
-        agent = await getAgent();
+        // agent = await getAgent();
+        agent = getLlmBashChain();
     }
+    const result = await agent.run(`Please write a bash script that prints 'Hello World' to the console.`)
     const { input } = req.body;
     console.log('query: ', input)
 
-    console.log(JSON.stringify(agent));
-
-    const result = await agent?.call(
-       {input}
-      );
+    // const result = await agent?.call(
+    //    {input}
+    //   );
 
     res.status(200);
     res.json(result);

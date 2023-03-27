@@ -27,7 +27,7 @@ import {
     TextLoader,
     UnstructuredLoader,
 } from "langchain/document_loaders";
-import { ChatVectorDBQAChain, ConversationChain, LLMChain, SqlDatabaseChain, VectorDBQAChain } from "langchain/chains";
+import { BaseChain, ChatVectorDBQAChain, ConversationChain, LLMChain, SqlDatabaseChain, VectorDBQAChain } from "langchain/chains";
 import { OpenAI } from "langchain";
 import { CallbackManager } from "langchain/callbacks";
 import {
@@ -37,6 +37,7 @@ import {
     SystemMessagePromptTemplate,
 } from "langchain/prompts";
 import { BufferMemory } from 'langchain/dist/memory';
+import { LlmBashChain } from './llm_bash';
 
 const cwd = process.cwd();
 
@@ -138,3 +139,20 @@ export const getAgent = async () => {
 
     return executor;
 };
+
+
+
+export const getLlmBashChain = () => {
+    
+    const model = new OpenAI({
+        temperature: 0.7,
+        concurrency: 10,
+        modelName: "gpt-3.5-turbo-0301",
+    });
+
+    const bashChain = new LlmBashChain({
+        llm: model
+    });
+
+    return bashChain;
+}

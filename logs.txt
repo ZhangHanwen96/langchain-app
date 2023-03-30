@@ -1,0 +1,14 @@
+dist
+package.json
+-rw-r--r--@   1 zhw  staff       18 Mar 27 21:21 logs.txt
+drwxr-xr-x@   5 zhw  staff      160 Mar 27 21:21 dist
+logs.txt
+dist
+logs.txt
+dist
+a.js
+dist
+drwxr-xr-x@   5 zhw  staff      160 Mar 28 10:55 dist
+drwxr-xr-x@ 301 zhw  staff     9632 Mar 28 09:56 node_modules
+logs.txt
+package.json

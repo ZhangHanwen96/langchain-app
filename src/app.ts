@@ -2,10 +2,17 @@
 import exress from 'express'
 import cors from 'cors';
 import dot from 'dotenv'
-import { getAgent, getLlmBashChain } from './chat';
+import path from 'path';
+import { getAgent, getLlmBashChain, getLlmMathChain } from './chat';
 import { OpenAI } from 'langchain';
+import { getZapierAgent } from './zapier';
+import { getFuncAgent } from './func_agent';
 
-dot.config();
+// dot.config({
+//     path: path.join(process.cwd(), '.env')
+// });
+
+// console.info(process.env)
 
 const app = exress();
 app.use(cors());
@@ -19,18 +26,18 @@ app.get('/ping', (_, res) => {
 
 type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
 
-let agent: UnwrapPromise<ReturnType<typeof getLlmBashChain>>;
+let agent: UnwrapPromise<ReturnType<typeof getFuncAgent>>;
 
 
 // const model = new OpenAI({ temperature: 0.9 });
 app.post('/chat', async (req, res) => {
     if(!agent) {
         // agent = await getAgent();
-        agent = getLlmBashChain();
+        agent = await getFuncAgent();
     }
-    const result = await agent.call({question: `Please write a bash script that prints 'Hello World' to the console.`})
     const { input } = req.body;
-    console.log('query: ', input)
+    const result = await agent.call({question: `${input}`})
+    // console.log('query: ', input)
 
     // const result = await agent?.call(
     //    {input}
@@ -47,5 +54,7 @@ const setup = async () => {
 }
 
 setup();
+
+// getFuncAgent()
 
 export default app;

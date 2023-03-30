@@ -2,19 +2,25 @@ lockfileVersion: 5.4
 
 specifiers:
   '@types/express': ^4.17.17
+  '@types/prompts': ^2.4.3
   cors: ^2.8.5
   cross-env: ^7.0.3
   dotenv: ^16.0.3
   express: ^4.18.2
   hnswlib-node: ^1.4.2
+  kolorist: ^1.7.0
   langchain: ^0.0.41
+  prompts: ^2.4.2
   sqlite3: ^5.1.6
   typeorm: ^0.3.12
   typescript: ^5.0.2
   unbuild: ^1.1.2
 
 dependencies:
+  '@types/prompts': 2.4.3
   hnswlib-node: 1.4.2
+  kolorist: 1.7.0
+  prompts: 2.4.2
   sqlite3: 5.1.6
   typeorm: 0.3.12_sqlite3@5.1.6
   unbuild: 1.1.2
@@ -670,7 +676,13 @@ packages:
 
   /@types/node/18.15.10:
     resolution: {integrity: sha512-9avDaQJczATcXgfmMAW3MIWArOO7A+m90vuCFLr8AotWf8igO/mRoYukrk2cqZVtv38tHs33retzHEilM7FpeQ==}
-    dev: true
+
+  /@types/prompts/2.4.3:
+    resolution: {integrity: sha512-qpzXlxoPv67TCtTCS+SwYmz1M+G5ARTrE5YVlrZPy/xBD36dzLqiJLDzOzsMXkcJYq6+6UkWqFwtLAOjsfec5Q==}
+    dependencies:
+      '@types/node': 18.15.10
+      kleur: 3.0.3
+    dev: false
 
   /@types/qs/6.9.7:
     resolution: {integrity: sha1-Y7t9Bn2xB8weRXwwO8JdUR/r9ss=}
@@ -1712,6 +1724,15 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /kleur/3.0.3:
+    resolution: {integrity: sha1-p5yezIbuHOP6YgbRIWxQHxR/wH4=}
+    engines: {node: '>=6'}
+    dev: false
+
+  /kolorist/1.7.0:
+    resolution: {integrity: sha512-ymToLHqL02udwVdbkowNpzjFd6UzozMtshPQKVi5k1EjKRqKqBrOnE9QbLEb0/pV76SAiIT13hdL8R6suc+f3g==}
+    dev: false
+
   /langchain/0.0.41_wxh6ezmvzo7recm3a4w6x63c2q:
     resolution: {integrity: sha512-X7JaexSicy1xfXpJNaQtUSTAjuNmpx0m56ygpMhGZ1ZKhXCXUTIXN4odUMOyP2+h9UnsthjZFrILFNZglghv4g==}
     peerDependencies:
@@ -2227,6 +2248,14 @@ packages:
       retry: 0.12.0
     optional: true
 
+  /prompts/2.4.2:
+    resolution: {integrity: sha1-e1fnOzpIAprRDr1E90sBcipMsGk=}
+    engines: {node: '>= 6'}
+    dependencies:
+      kleur: 3.0.3
+      sisteransi: 1.0.5
+    dev: false
+
   /proxy-addr/2.0.7:
     resolution: {integrity: sha1-8Z/mnOqzEe65S0LnDowgcPm6ECU=}
     engines: {node: '>= 0.10'}
@@ -2422,6 +2451,10 @@ packages:
 
   /signal-exit/3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
+
+  /sisteransi/1.0.5:
+    resolution: {integrity: sha1-E01oEpd1ZDfMBcoBNw06elcQde0=}
+    dev: false
 
   /slash/4.0.0:
     resolution: {integrity: sha1-JCI3IXbExsWt214q2oha+YSzlqc=}

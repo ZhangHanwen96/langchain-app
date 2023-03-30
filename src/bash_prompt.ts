@@ -15,7 +15,7 @@ export const DEFAULT_BASH_PROMPT = new PromptTemplate({
   mkdir myNewDirectory
   cp -r target/* myNewDirectory
   \`\`\`
-  That is the format. Begin!
+  That is the format. Begin!.
   Question: {question}`,
   inputVariables: ["question"],
 });

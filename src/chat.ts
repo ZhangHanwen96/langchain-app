@@ -5,7 +5,6 @@ import {
     createVectorStoreAgent,
     initializeAgentExecutor,
     ChatConversationalAgent,
-
 } from "langchain/agents";
 import {
     RequestsGetTool,
@@ -38,6 +37,7 @@ import {
 } from "langchain/prompts";
 import { BufferMemory } from 'langchain/dist/memory';
 import { LlmBashChain } from './llm_bash';
+import { LlmMathChain } from './llm_math';
 
 const cwd = process.cwd();
 
@@ -143,15 +143,30 @@ export const getAgent = async () => {
 
 
 export const getLlmBashChain = () => {
-    
     const model = new OpenAI({
-        temperature: 0.7,
+        temperature: 0,
         concurrency: 10,
         modelName: "gpt-3.5-turbo-0301",
+        verbose: true,
     });
 
     const bashChain = new LlmBashChain({
         llm: model
+    });
+
+    return bashChain;
+}
+
+export const getLlmMathChain = () => {
+    const model = new OpenAI({
+        temperature: 0,
+        concurrency: 10,
+        modelName: "gpt-3.5-turbo-0301",
+        verbose: true,
+    });
+
+    const bashChain = new LlmMathChain({
+        llm: model,
     });
 
     return bashChain;

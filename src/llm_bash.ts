@@ -2,7 +2,7 @@ import { BaseChain, LLMChain } from "langchain/chains";
 import { BaseLanguageModel } from "langchain/base_language";
 import { DEFAULT_BASH_PROMPT } from "./bash_prompt";
 import { ChainValues } from "langchain/schema";
-import { execSync } from 'child_process'
+import { execSync } from 'child_process';
 
 export class BashProcess {
     private stripNewlines: boolean;
@@ -30,6 +30,7 @@ export class BashProcess {
     commands = commands.join(';');
     try {
       const output = execSync(commands).toString();
+      console.log('\x1b[34m%s\x1b[0m', output)
       if (this.stripNewlines) {
         return output.trim();
       }
@@ -49,27 +50,28 @@ export class LlmBashChain extends BaseChain {
 
     prompt = DEFAULT_BASH_PROMPT;
 
-    verbose: boolean = true;
-
     outputKey = "result";
 
     inputKey = "question";
 
     get inputKeys() {
-        return ["question"];
+        return [this.inputKey];
     }
 
     constructor(fields: {
         llm: BaseLanguageModel;
+        inputKey?: string;
+        outputKey?: string;
       }) {
         super();
         this.llm = fields.llm
+        this.inputKey = fields.inputKey ?? this.inputKey;
+        this.outputKey = fields.outputKey ?? this.outputKey;
     }
 
     _chainType(): string {
         return "llm_bash_chain";
     }
-
 
     async _call(values: ChainValues): Promise<ChainValues> {
         if (!(this.inputKey in values)) {
@@ -87,16 +89,18 @@ export class LlmBashChain extends BaseChain {
             question: values[this.inputKey]
         });
 
-        t.trim();
-        let output;
-        console.info(t);
-        if(t.startsWith("```bash")) {
-            let commandList = t.split('\n');
-            console.info(commandList);
+        console.log('\x1b[32m%s\x1b[0m', t);
 
+        t.trim();
+        const pattern = /```bash([\s\S]*?)```/gm;
+        const m = t.match(pattern);
+
+        let matchedBash = m?.[0];
+        let output;
+        if(matchedBash) {
+            let commandList = matchedBash.split('\n');
+            commandList = commandList.slice(1, commandList.length - 1);
             //  Remove the first and last substrings
-            commandList = commandList.map((c) => c.substring(1, c.length - 1));
-            
             output = bash_executor.run(commandList);
         } else {
             throw new Error(`unknown format from LLM: ${t}}`)
@@ -114,4 +118,11 @@ export class LlmBashChain extends BaseChain {
             llm: this.llm.serialize(),
         }
     }
+
+    // static deserialize(fields: {
+    //   data: Record<string, any>,
+    //   values: Record<string, any>,
+    // }) {
+    //   const {_type, llm} = data;
+    // }
 }
